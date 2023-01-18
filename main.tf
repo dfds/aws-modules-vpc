@@ -18,7 +18,7 @@ resource "aws_subnet" "public" {
   tags = merge(
     var.additional_tags,
     {
-      Name = "${var.name}-public-subnet-${data.aws_availability_zones.available.names[0]}",
+      Name = "${var.name}-public-subnet-${data.aws_availability_zones.available.names[count.index]}",
       Tier = "public"
     }
   )
@@ -33,7 +33,7 @@ resource "aws_subnet" "private" {
   tags = merge(
     var.additional_tags,
     {
-      Name = "${var.name}-private-subnet-${data.aws_availability_zones.available.names[0]}",
+      Name = "${var.name}-private-subnet-${data.aws_availability_zones.available.names[count.index]}",
       Tier = "private"
     }
   )
@@ -103,7 +103,7 @@ resource "aws_route_table" "private" {
   tags = merge(
     var.additional_tags,
     {
-      Name = "${var.name}-public-rt"
+      Name = "${var.name}-private-rt"
     }
   )
 }
